@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from flask.mysql import MySQL
 import yaml
 from logincheck import loginmatch
+from pmath import find_user_id, profit_loss, time, BB_per_hr, pl_per_hr, user_table
 
 app = Flask(__name__)
 
@@ -22,7 +23,7 @@ def login():
         try:
             check = loginmatch(login_id, password)
             if check == True:
-                return render_template('result_output.html')
+                return render_template('result_output.html', profit_loss, time, pl_per_hr, BB_per_hr,user_table)
         except:
             return render_template('error.html', error=True)
     return render_template('login_page.html', error=None)
@@ -43,6 +44,10 @@ def index():
         cur.close()
         return 'data has been entered'
     return render_template('data_input.html')
+
+@app.route('/result', method=['GET','POST'])
+def table():
+    return render_template('result_output.html')
 
 if __name__ =='__main__':
     app.run(debug=True)

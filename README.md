@@ -13,3 +13,5 @@ package installed:
 tabulate
 flask-mysql
 mysql-connector
+
+<a href="{{ url_for('data_input') }}">Click here to return to the index page</a>

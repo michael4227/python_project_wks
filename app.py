@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 # from flaskext.mysql import MySQL
-from flask.mysql import MySQL
+from flask_mysql import MySQL
 import yaml
 from logincheck import loginmatch
 from pmath import find_user_id, profit_loss, time, BB_per_hr, pl_per_hr, user_table
@@ -45,13 +45,13 @@ def index():
         return 'data has been entered'
     return render_template('data_input.html')
 
-@app.route('/result', method=['GET','POST'])
-def table():
-    return render_template('result_output.html')
+# @app.route('/result', method=['GET','POST'])
+# def table():
+#     return render_template('result_output.html')
 
-@app.route('/delete', method=['GET','POST'])
-def delete():
-    pass
+# @app.route('/delete', method=['GET','POST'])
+# def delete():
+#     pass
 
 if __name__ =='__main__':
     app.run(debug=True)

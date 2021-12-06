@@ -167,7 +167,7 @@ def user_table(Login_id):
     #     table_list.append(loop_list)
     # print(table_list)
 
-    user_table = tabulate(table,headers='firstrow',tablefmt='fancy_grid')
+    user_table = tabulate(table,headers='firstrow',tablefmt='html')
     return user_table
 
-# print(user_table('Michael'))
+print(user_table('Michael'))

@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request
 # from flaskext.mysql import MySQL
-from flask_mysql import MySQL
+# from flask_mysqldb import MySQL
 import yaml
 from logincheck import loginmatch
 from pmath import find_user_id, profit_loss, time, BB_per_hr, pl_per_hr, user_table
+import sqlite3
+import sqlalchemy
 
 app = Flask(__name__)
 
@@ -14,6 +16,7 @@ app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 
 mysql = MySQL(app)
+mysql.init_app(app)
 
 @app.route('/', methods=['GET','POST'])
 def login():
@@ -38,16 +41,16 @@ def index():
         total_loss = sessionDetails['loss']
         small_blind = sessionDetails['SB']
         big_blind = sessionDetails['BB']
-        cur = mysql.connection.cursor()
+        cur = mysql.get_db().cursor()
         cur.execute('INSERT INTO Session(BB, SB, win, loss, location, hours) VALUES(%f,%f,%f,%f,%s,%f)',(BB,SB,Profit,Loss,Location,Time))
         mysql.connection.commit()
         cur.close()
         return 'data has been entered'
     return render_template('data_input.html')
 
-# @app.route('/result', method=['GET','POST'])
-# def table():
-#     return render_template('result_output.html')
+@app.route('/result', method=['GET','POST'])
+def table():
+    return render_template('result_output.html')
 
 # @app.route('/delete', method=['GET','POST'])
 # def delete():

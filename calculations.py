@@ -163,23 +163,53 @@ def new_session_id(Login_id):
 # print(new_session_id('Michael'))
 # expect: 4
 
-# def graph(Login_id):
-#     conn = sqlite3.connect('Profile.db')
-#     my_cursor = conn.cursor()
-#     sql_4 = 'SELECT Session.session_id, Session.Profit, Session.Loss, Session.User_id FROM Session'
-#     my_cursor.execute(sql_4)
+def graph_label(Login_id):
+    conn = sqlite3.connect('Profile.db')
+    my_cursor = conn.cursor()
+    sql_4 = 'SELECT Session.session_id, Session.Profit, Session.Loss, Session.User_id FROM Session'
+    my_cursor.execute(sql_4)
 
-#     user_id = find_user_id(Login_id)
+    user_id = find_user_id(Login_id)
 
-#     Session_pl_list = my_cursor.fetchall()
-#     whole_list = list()
+    Session_pl_list = my_cursor.fetchall()
+    whole_list = list()
 
-#     for i in Session_pl_list:
-#         whole_list.append(i)
-#     print(whole_list)
+    for i in Session_pl_list:
+        whole_list.append(i)
+    # print(whole_list)
 
-#     session_id_list = 
-#     for t in whole_list:
-#         for i in range(t):
+    labels = []
+    for t in whole_list:
+        if t[3] == user_id:
+            # a.replace("'","")
+            labels.append(f'Session {t[0]}')
+    return labels
+
+def graph_data(Login_id):
+    conn = sqlite3.connect('Profile.db')
+    my_cursor = conn.cursor()
+    sql_4 = 'SELECT Session.session_id, Session.Profit, Session.Loss, Session.User_id FROM Session'
+    my_cursor.execute(sql_4)
+
+    user_id = find_user_id(Login_id)
+
+    Session_pl_list = my_cursor.fetchall()
+    whole_list = list()
+
+    for i in Session_pl_list:
+        whole_list.append(i)
+    # print(whole_list)
+
+    datas = []
+    for t in whole_list:
+        if t[3] == user_id:
+            pl_sum = float(t[1]) - float(t[2])
+            datas.append(pl_sum)
+    return datas
+
+print(graph_data('Michael'))
+print(graph_label('Michael'))
+    # session_id_list = 
+    # for t in whole_list:
+    #     for i in range(t):
             
-

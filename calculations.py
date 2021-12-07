@@ -117,7 +117,7 @@ def user_table(Login_id):
         table_list.append(i)
     # print(table_list)
 
-    table = [['Session_id', 'Big_Blind', 'Small_Blind', 'Win', 'Loss', 'Location', 'Time']]
+    table = [['Session_id', 'Big_Blind', 'Small_Blind', 'Win', 'Loss', 'Location', 'Time','User_id']]
     sessions = []
     for t in table_list:
         if user_id ==t[7]:
@@ -162,3 +162,24 @@ def new_session_id(Login_id):
     return new_count
 # print(new_session_id('Michael'))
 # expect: 4
+
+# def graph(Login_id):
+#     conn = sqlite3.connect('Profile.db')
+#     my_cursor = conn.cursor()
+#     sql_4 = 'SELECT Session.session_id, Session.Profit, Session.Loss, Session.User_id FROM Session'
+#     my_cursor.execute(sql_4)
+
+#     user_id = find_user_id(Login_id)
+
+#     Session_pl_list = my_cursor.fetchall()
+#     whole_list = list()
+
+#     for i in Session_pl_list:
+#         whole_list.append(i)
+#     print(whole_list)
+
+#     session_id_list = 
+#     for t in whole_list:
+#         for i in range(t):
+            
+

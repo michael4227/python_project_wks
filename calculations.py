@@ -154,13 +154,14 @@ def new_session_id(Login_id):
         whole_list.append(i)
     # print(whole_list)
 
-    count = 0
+    user_list = []
     for t in whole_list:
         if t[7] == user_id:
-            count += 1
-    new_count = count+1
-    return new_count
-# print(new_session_id('Michael'))
+            user_list.append(t)
+    last_session_t = len(user_list)-1
+    hst_sid = user_list[last_session_t][0]
+    return hst_sid
+print(new_session_id('Michael'))
 # expect: 4
 
 def graph_label(Login_id):
@@ -206,10 +207,4 @@ def graph_data(Login_id):
             pl_sum = float(t[1]) - float(t[2])
             datas.append(pl_sum)
     return datas
-
-print(graph_data('Michael'))
-print(graph_label('Michael'))
-    # session_id_list = 
-    # for t in whole_list:
-    #     for i in range(t):
             

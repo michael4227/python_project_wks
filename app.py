@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from logincheck import loginmatch
-from calculations import find_user_id, profit_loss, time, BB_per_hr, pl_per_hr, user_table, new_session_id
+from calculations import find_user_id, profit_loss, time, BB_per_hr, pl_per_hr, user_table, new_session_id,graph_data,graph_label
 import sqlite3
 # from logincheck import loginid
 
@@ -23,7 +23,9 @@ def login():
                 t=time(login_id), 
                 pl_h=pl_per_hr(login_id), 
                 BB_h=BB_per_hr(login_id),
-                u_t=user_table(login_id))
+                u_t=user_table(login_id),
+                graph_label=graph_label(login_id),
+                graph_data=graph_data(login_id))
         except:
             return render_template('login_page.html', error=True)
     return render_template('login_page.html', error=None)
@@ -39,12 +41,13 @@ def index():
         loss = sessionDetails['loss']
         small_blind = sessionDetails['SB']
         big_blind = sessionDetails['BB']
-        # sid = new_session_id()
         session_id = new_session_id(Login_id=request.form['login_id'])
         cur = sqlite3.connect('Profile.db').cursor()
         cur.execute('INSERT INTO Session (BB, SB, win, loss, location, hours) VALUES(?,?,?,?,?,?,?)',(session_id, big_blind, small_blind, win, loss, location, hours))
         conn.connection.commit()
         cur.close()
+
+        print(location and hours and win and loss and small_blind and big_blind and session_id)
         return 'data has been entered'
     return render_template('data_input.html')
 
